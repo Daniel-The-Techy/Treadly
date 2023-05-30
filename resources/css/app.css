@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@font-face {
+    font-family: "Proxima";
+    src: url("/public/Proxima\ Nova\ Font.otf");
+}
+
+li{
+    @apply px-4;
+    @apply hover:text-gray-300;
+}
+li:hover{
+   @apply text-gray-400
+}
