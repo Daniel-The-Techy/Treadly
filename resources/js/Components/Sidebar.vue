@@ -35,15 +35,15 @@
             </svg>
   
             <span class="mx-2 text-2xl font-semibold text-white"
-              >V-Dashboard</span
+              >WritersHub</span
             >
           </div>
         </div>
   
         <nav class="mt-10">
-          <router-link
-            class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4">
-        
+          <Link :href="route('dashboard')"
+            class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
+            :class="[$page.url === '/Dashboard' ? activeClass :inactiveClass ]">
         
             <svg
               class="w-5 h-5"
@@ -62,45 +62,24 @@
             </svg>
   
             <span class="mx-4">Dashboard</span>
-          </router-link>
+        </Link>
   
-          <router-link
+          <Link :href="route('posts')"
             class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
-         
-            to="/ui-elements"
-          >
-            <svg
-              class="w-5 h-5"
-              viewBox="0 0 20 20"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M5 3C3.89543 3 3 3.89543 3 5V7C3 8.10457 3.89543 9 5 9H7C8.10457 9 9 8.10457 9 7V5C9 3.89543 8.10457 3 7 3H5Z"
-                fill="currentColor"
-              />
-              <path
-                d="M5 11C3.89543 11 3 11.8954 3 13V15C3 16.1046 3.89543 17 5 17H7C8.10457 17 9 16.1046 9 15V13C9 11.8954 8.10457 11 7 11H5Z"
-                fill="currentColor"
-              />
-              <path
-                d="M11 5C11 3.89543 11.8954 3 13 3H15C16.1046 3 17 3.89543 17 5V7C17 8.10457 16.1046 9 15 9H13C11.8954 9 11 8.10457 11 7V5Z"
-                fill="currentColor"
-              />
-              <path
-                d="M11 13C11 11.8954 11.8954 11 13 11H15C16.1046 11 17 11.8954 17 13V15C17 16.1046 16.1046 17 15 17H13C11.8954 17 11 16.1046 11 15V13Z"
-                fill="currentColor"
-              />
-            </svg>
+            :class="[$page.url === '/Posts' ? activeClass :inactiveClass ]">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
+</svg>
+
   
-            <span class="mx-4">UI Elements</span>
-          </router-link>
+            <span class="mx-4">Manage Post</span>
+        </link>
   
-          <router-link
+          <Link :href="route('approval')"
             class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
 
-            to="/tables"
-          >
+            :class="[$page.url === '/Approval' ? activeClass :inactiveClass ]">
+          
             <svg
               class="w-5 h-5"
               viewBox="0 0 20 20"
@@ -121,67 +100,61 @@
               />
             </svg>
   
-            <span class="mx-4">Tables</span>
-          </router-link>
+            <span class="mx-4">Reports</span>
+        </Link>
   
-          <router-link
+          <Link :href="route('Analytics')"
+            class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
+            :class="[$page.url === '/Analytics' ? activeClass :inactiveClass ]">
+
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
+</svg>
+  
+            <span class="mx-4">Analytics</span>
+        </link>
+  
+          <Link :href="route('profile')"
             class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
 
-            to="/forms"
-          >
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-              <path
-                d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"
-              />
-              <path
-                fill-rule="evenodd"
-                d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
-                clip-rule="evenodd"
-              />
-            </svg>
-  
-            <span class="mx-4">Forms</span>
-          </router-link>
-  
-          <router-link
-            class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
+            :class="[$page.url === '/Profile' ? activeClass :inactiveClass ]">
 
-            to="/cards"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
-              <path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z" />
-              <path fill-rule="evenodd" d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z" clip-rule="evenodd" />
-            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z" />
+</svg>
+
+    
+         
   
-            <span class="mx-4">Cards</span>
-          </router-link>
+            <span class="mx-4">Profile</span>
+        </Link>
   
-          <router-link
+          <Link :href="route('Marketing')"
             class="flex items-center px-6 py-2 mt-4  duration-200 border-l-4"
 
-            to="/modal"
-          >
+            :class="[$page.url === '/Marketing' ? activeClass :inactiveClass ]">
+        
           <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
             <path d="M3 12v3c0 1.657 3.134 3 7 3s7-1.343 7-3v-3c0 1.657-3.134 3-7 3s-7-1.343-7-3z" />
             <path d="M3 7v3c0 1.657 3.134 3 7 3s7-1.343 7-3V7c0 1.657-3.134 3-7 3S3 8.657 3 7z" />
             <path d="M17 5c0 1.657-3.134 3-7 3S3 6.657 3 5s3.134-3 7-3 7 1.343 7 3z" />
           </svg>
   
-            <span class="mx-4">Modal</span>
-          </router-link>
+            <span class="mx-4">Marketing</span>
+        </Link>
   
-          <Link :href="route('Test')"
+          <Link :href="route('profile.edit')"
             class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
-            :active="route().current('Test')">
+            :class="[$page.url === '/Profile' ? activeClass :inactiveClass ]">
 
-          
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-              <path
-                d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"
-              />
-            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z" />
+  <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+</svg>
+
+           
   
-            <span class="mx-4 cursor-pointer">Blank</span>
+            <span class="mx-4 cursor-pointer">Setting</span>
           </Link>
         </nav>
       </div>
@@ -197,10 +170,10 @@ import { Link } from "@inertiajs/vue3";
   
   const {isOpen}=useSidebar();
   const activeClass = ref(
-    "bg-gray-600 bg-opacity-25 text-gray-100 border-gray-100"
+    "bg-gray-600 bg-opacity-25 text-gray-400 border-gray-100"
   );
   const inactiveClass = ref(
-    "border-gray-900 text-gray-500 hover:bg-gray-600 hover:bg-opacity-25 hover:text-gray-100"
+    "border-gray-900 text-gray-300 hover:bg-gray-600 hover:bg-opacity-25 hover:text-gray-100"
   );
   </script>
   

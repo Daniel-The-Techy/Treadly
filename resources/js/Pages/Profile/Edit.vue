@@ -4,6 +4,7 @@ import DeleteUserForm from './Partials/DeleteUserForm.vue';
 import UpdatePasswordForm from './Partials/UpdatePasswordForm.vue';
 import UpdateProfileInformationForm from './Partials/UpdateProfileInformationForm.vue';
 import { Head } from '@inertiajs/vue3';
+import Auth from '@/Layouts/Auth.vue';
 
 defineProps({
     mustVerifyEmail: Boolean,
@@ -12,9 +13,9 @@ defineProps({
 </script>
 
 <template>
-    <Head title="Profile" />
+    <Head title="Setting" />
 
-    <AuthenticatedLayout>
+    <Auth>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">Profile</h2>
         </template>
@@ -38,5 +39,5 @@ defineProps({
                 </div>
             </div>
         </div>
-    </AuthenticatedLayout>
+    </Auth>
 </template>

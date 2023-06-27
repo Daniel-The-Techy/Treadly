@@ -10,9 +10,9 @@ class UserController extends Controller
 {
     public function show(){
         $User=User::get();
-        return Inertia::render('User/Show', [
-            'User'=>$User
-        ]);
+    //    return Inertia::render('Account/Profile', [
+        //    'User'=>$User
+      //  ]);
     }
 
     public function Set(){

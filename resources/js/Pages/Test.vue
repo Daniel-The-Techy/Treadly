@@ -18,4 +18,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import Auth from '@/Layouts/Auth.vue'
 import { Head } from '@inertiajs/vue3';
+
+
+
 </script>

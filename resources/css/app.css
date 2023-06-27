@@ -8,10 +8,37 @@
     src: url("/public/Proxima\ Nova\ Font.otf");
 }
 
+@layer base {
+    h1 {
+      @apply text-4xl;
+    }
+    h2 {
+      @apply text-3xl;
+    }
+    h3{
+        @apply text-2xl
+    }
+    h4{
+        @apply text-xl
+    }
+}
+
 li{
     @apply px-4;
     @apply hover:text-gray-300;
 }
 li:hover{
    @apply text-gray-400
+}
+
+.Container{
+    width:1000%;
+    max-width: 100%;
+    padding:10px 50px;
+    margin:0 auto;
+}
+@media screen and  (min-width:280px) and (max-width:568px) {
+    .Container{
+        padding: 5px 20px;
+    }
 }

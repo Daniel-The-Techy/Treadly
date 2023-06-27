@@ -38,7 +38,7 @@
           </span>
   
           <input
-            class="w-32 pl-10 pr-4 text-indigo-600 border-gray-200 rounded-md sm:w-64 focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
+            class="w-48 pl-10 pr-4 text-indigo-600 border-gray-200 rounded-md sm:w-64 focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
             type="text"
             placeholder="Search"
           />
@@ -93,20 +93,20 @@
               v-show="dropdownOpen"
               class="absolute right-0 z-20 w-48 py-2 mt-2 bg-white rounded-md shadow-xl"
             >
-              <a
-                href="#"
-                class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white"
-                >Profile</a
+              <Link :href="route('profile')" method="get" as="button"
+
+                class="block px-4 py-2 text-sm w-full text-gray-700 hover:bg-indigo-600 hover:text-white"
+                >Profile</Link
               >
               <a
                 href="#"
                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white"
-                >Products</a
+                >Public View</a
               >
-              <router-link
-                to="/"
-                class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white"
-                >Log out</router-link
+              <Link
+              :href="route('logout')" method="post" as="button"
+                class="block px-4 py-2  w-full text-sm text-gray-700 hover:bg-indigo-600 hover:text-white"
+                >Log out</Link
               >
             </div>
           </transition>
@@ -117,6 +117,7 @@
   
   <script setup>
   import { ref } from "vue";
+  import { Link } from "@inertiajs/vue3";
   import {useSidebar} from '@/hooks/useSidebar'
   
   const dropdownOpen = ref(false);

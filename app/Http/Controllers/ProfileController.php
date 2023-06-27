@@ -46,6 +46,9 @@ class ProfileController extends Controller
     public function destroy(Request $request): RedirectResponse
     {
         $request->validate([
+            'username'=>'required|string',
+            'bio'=>'required',
+            'about'=>'required',
             'password' => ['required', 'current-password'],
         ]);
 
@@ -60,4 +63,6 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+
+    
 }

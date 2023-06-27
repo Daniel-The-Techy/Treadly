@@ -25,6 +25,12 @@
         src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"
         defer
       ></script>
+
+    
+
+      
+
+
     </head>
     <body class="font-sans antialiased bg-gray-100 font-Proxima">
         @inertia
