@@ -2,19 +2,29 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Events\Followed;
+use App\Models\post_views;
 use Exception;
 use App\Models\User;
 use Inertia\Inertia;
+use App\Models\Posts;
 use App\Models\Profile;
+use App\Models\Followers;
 use Illuminate\Support\Str;
+use Facades\App\Service\ViewService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Models\Followers;
 use Illuminate\Support\Facades\File;
+use App\Http\Requests\UserProfileRequest;
+
+use function Termwind\render;
 
 class UserProfileController extends Controller
 {
+
+     private $status;
+
     public function index(){
         $Profile=Profile::get();
         $Country=DB::table('oc_country')->select('name');
@@ -24,64 +34,93 @@ class UserProfileController extends Controller
         ]);
     }
 
-    public function action(User $user, Request $request, Profile $profile){
-     //   dd($profile->user->id);
-        $user1 = User::find(318129);
-        $user2 = User::find(665371);
-     //   dd($user->followBy($request->user()));
-      //  if(!$user->followBy($request->user())){
-            $action=$request->user()->following()->toggle($profile->user->id);
-     //   }else{
-         //   $user1->following()->detach($user2->id);
-    //    }
-      //  dd($action);
-
+    public function action(Request $request,  User $user){
+            $action=$request->user()->following()->toggle($user->id);
+               if(!empty($action['attached'])){
+                   event(new Followed($request->user(), $user, $user));
+               }
     }
 
-    public function showProfile(Request $request, Profile $profile, User $user){
-        
+    public function showProfile(Request $request, Profile $profile, User $user, Posts $posts, post_views $post_views){
+          
+        $users=$profile->user_id ?? $request->user()->id ;
         $user_id=$profile->id ?? $request->user()->Profile->id;
 
-       $Profiles= Profile::where('id', $user_id)->get();
+       // dd($profile->id);
+   
+       $authUser=auth()->user();
 
-       $status=$user->followBy($request->user());
+       $Profiles=User::with(['profile' => function($q) use ($user_id) {
+         $q->where('id', $user_id);
+       }])->find($users);
 
-       $Auth=$profile->id ? True : false;
+     //  dd($Profiles);
 
-    //  dd($request->user()->following->count());
+
+       $FollowingId=$authUser->following()->pluck('users.id');
+
+       $followersId=$authUser->followers()->pluck('users.id')->toArray();
+
+    
+
+         
+       $statusList=[];
+
+       foreach($FollowingId as $userId) {
+           $statusList[$userId]=in_array($userId, $followersId);
+       }
+
+      
+       
+        $profile_User_Id=$profile->user_id ?? $request->user()->profile->user_id;
+
+        $Auth=$user->profileOwner($request->user()->id, $profile_User_Id);
+
+
+
+        $followingStatus=$request->user() ?? $user->followBy($profile->user->id);
+    
 
        $FollowersCount=$profile->id ? $profile->User->followers->count() : $request->user()->followers->count();
        
        $FollowingCount=$profile->id ? $profile->User->following->count() : $request->user()->following->count();
 
        $PostCount=$profile->id ? $profile->User->Posts->count() : $request->user()->Posts->count();
-       
-        
-    // dd($profile->User->followers->count());
+
+       $MainId=$profile->user_id ?? $request->user()->id;
+
+        $Following=User::with([ 'Profile'])->find($MainId)->followers()->get()->map( fn($user) => [
+            'id'=>$user->id,
+            'Username'=>$user->profile->Username,
+            'image'=>$user->profile->Photo,
+            'name'=>$user->name,
+            
+         ]);
+         
+         $post=User::with(['Posts' => function ($query) use ($MainId){
+            $query->withCount(['Likes', 'views', 'comment'])->withExists(['likes as liked_by_auth_user' => function($q) use ($MainId) {
+                $q->where('user_id', $MainId);
+            }]);
+         }])->findOrFail($MainId);
+   
 
        return Inertia::render('Account/Profile', [
-           'Profile'=>$Profiles,
-           'Status'=>$status,
+           'userProfile'=>$Profiles,
+          'status'=>$statusList,
            'FollowersCount'=>$FollowersCount,
            'Auth'=>$Auth,
            'FollowingCount'=>$FollowingCount,
-           'PostCount'=>$PostCount
+           'PostCount'=>$PostCount,
+           'Followings'=>$Following,
+           'Post'=>$post,
+           'followingStatus'=>$followingStatus
+
        ]);
     }
 
 
-    public function store(Request $request){
-         $Profile=$request->validate([
-          'Username'=>'required|string',
-          'Bio'=>'required',
-          'About'=>'required',
-          'contact'=>'required',
-           'Photo'=>'required',
-           'skills'=>'required',
-           'Profession'=>'required',
-           'Country'=>'required',
-            'Cover_image'=>'required'
-         ]);
+    public function store(UserProfileRequest $request){
+         $Profile=$request->validated();
 
          if(isset($Profile['Photo'])){
          $Photo=$this->saveImage($Profile['Photo']);
@@ -99,9 +138,16 @@ class UserProfileController extends Controller
             File::delete($absolutePath);
          }
 
+        //Replace whitespace with underscore in username and append tag to each profile username created
+        if(isset($profile['Username'])){
+            $newUsername=str_replace(' ', '_', $Profile['Username']);
+            $userNameWithTag='@'.$newUsername;
+            $profile['Username']=$userNameWithTag;
+        }
 
-
-         $request->user()->Profile()->updateOrCreate([
+         $request->user()->Profile()->updateOrCreate(
+            ['id'=>$request->id],
+            [
             'Username'=>$Profile['Username'],
             'Bio'=>$Profile['Bio'],
             'About'=>$Profile['About'],
@@ -111,11 +157,20 @@ class UserProfileController extends Controller
             'Country'=>$Profile['Country'],
             'Profession'=>$Profile['Profession'],
             'Cover_image'=>$Profile['Cover_image'],
-         ]);
+            ],
+
+          
+            
+        
+        
+        );
 
          return back()->with('ProfileStatus', 'Profile Successfully created');
     }
 
+   
+
+  
     public function saveImage($image){
 
         if(preg_match('/^data:image\/(\w+);base64,/', $image, $match)){
@@ -151,5 +206,6 @@ class UserProfileController extends Controller
 
         return $relativePath;
      }
+
 
 }

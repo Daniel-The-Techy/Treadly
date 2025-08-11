@@ -1,17 +1,19 @@
 <?php
 
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\CommentController;
-use App\Http\Controllers\Dashboard\DashboardController;
-use App\Http\Controllers\Dashboard\PostController;
-use App\Http\Controllers\Dashboard\UserProfileController;
 use Inertia\Inertia;
+use App\Models\Posts;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ConnectController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\Dashboard\PostController;
+use App\Http\Controllers\Dashboard\DashboardController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use App\Http\Controllers\Dashboard\UserProfileController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
@@ -53,10 +55,6 @@ Route::post('/email/verification-notification', function (Request $request) {
 
 
 
-Route::get('Auth/Test', function(){
-    return Inertia::render('Test');
-})->middleware(['auth'])->name('Test');
-
 
 Route::get('Home', function(){
       return Inertia::render('Account/Home');
@@ -72,13 +70,9 @@ Route::get('Auth/Approval', function(){
 })->middleware(['auth', 'verified'])->name('approval');
 
 
-Route::get('Auth/Marketing', function(){
-    return Inertia::render('Marketing');
-})->middleware(['auth', 'verified'])->name('Marketing');
 
-Route::get('Auth/Analytics', function(){
-    return Inertia::render('Analytics');
-})->middleware(['auth', 'verified'])->name('Analytics');
+Route::get('Auth/Analytics', [DashboardController::class, 'miniAnalytics'])
+->middleware(['auth', 'verified'])->name('Analytics');
 
 //Route::get('Auth/dashboard', function () {
   //  return Inertia::render('Dashboard');
@@ -98,7 +92,7 @@ Route::get('/Choose/Category', function () {
 
 
 
-
+Route::get('/Home/Post/{id} - {slug}', [PostController::class, 'show'])->name('Post.show');
 
 
 Route::middleware('auth')->group(function () {
@@ -108,17 +102,25 @@ Route::middleware('auth')->group(function () {
     Route::get('Auth/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('Auth/Profile', [UserProfileController::class, 'index'])->name('profile');
     Route::Post('Auth/Profile', [UserProfileController::class, 'store'])->name('Profile.save');
-    Route::get('Auth/Posts', [PostController::class, 'showCategory'])->name('posts');
+   
+  //  Route::get('Auth/Profile', [UserProfileController::class, 'getProfile'])->name('Profile.get');
+    Route::get('Auth/Posts/{posts?}', [PostController::class, 'showCategory'])->name('posts');
     Route::Post('Auth/Posts', [PostController::class, 'store'])->name('Posts.save');
     Route::Post('Auth/Posts/CategoryCreate', [CategoryController::class, 'store'])->name('Category.save');
-    Route::Post('Home/Profile/f/{profile}', [UserProfileController::class, 'action'])->name('Follows');
-    Route::get('Home/Profile/{profile?}', [UserProfileController::class, 'showProfile'])->name('profile-view');
-    Route::get('/Home/Post/{post}', [PostController::class, 'show'])->name('Post.show');
-    Route::Post('/Home/Post/c/', [CommentController::class,'store'])->name('Comment.create');
+   // Route::Post('Home/Profile/f/{profile:user_id}', [UserProfileController::class, 'action'])->name('Follows');
+   Route::Post('/Profiles/{user}/follow/', [UserProfileController::class, 'action'])->name('Follows');
+    Route::get('Home/Profile/{profile:Username?}', [UserProfileController::class, 'showProfile'])->name('profile-view');
+    Route::get('/Home/Post/', [PostController::class, 'AllPosts'])->name('posts.showAll');
+      Route::get('/Home/Post/search', [PostController::class, 'searchPost'])->name('posts.search');
+    Route::Post('/Post/{posts}/comment', [CommentController::class,'store'])->name('Comment.create');
+    Route::Post('Home/Post/r/', [CommentController::class, 'replyComment'])->name('Reply.create');
+    Route::Post('/posts/{posts}/like/', [PostController::class,'Like_Post'])->name('post.like');
+    Route::delete('Home/Comment/d/{comments}', [CommentController::class, 'removeComment'])->name('Comment.delete');
+    Route::POST('/comment/{comments}/like', [CommentController::class, 'likeComment'])->name('like_Comment');
+    Route::delete('Home/Reply/d/{reply}', [CommentController::class, 'removeReply'])->name('Reply.delete');
+    Route::put('Home/Comment/edit/{comments}', [CommentController::class, 'editComment'])->name('comment.Edit');
     
-    Route::get('Home/Connect', function(){
-        return Inertia::render('Account/Connect');
-    })->name('Connect');
+    Route::get('Home/Connect', [ConnectController::class, 'listUsers'])->name('Connect');
     
     Route::get('Home/Profile/Posts', function(){
         return Inertia::render('Account/Posts');

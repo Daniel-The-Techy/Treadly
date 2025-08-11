@@ -30,9 +30,17 @@ class Profile extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function Followers(){
-        return $this->BelongsToMany(Followers::class);
-    }
+  //  public function Followers(){
+     //   return $this->BelongsToMany(Followers::class);
+   // }
+
+   public function followers(){
+    return $this->belongsToMany(Profile::class, 'followers', 'Followee_id', 'Follower_id')->withTimestamps();
+}
+
+public function following(){
+    return $this->belongsToMany(Profile::class, 'followers', 'Follower_id', 'Followee_id')->withTimestamps();;
+}
 
     public function Posts(){
         return $this->belongsTo(Posts::class);

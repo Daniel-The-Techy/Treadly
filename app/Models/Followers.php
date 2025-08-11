@@ -11,7 +11,9 @@ class Followers extends Model
 {
     use HasFactory;
 
-  
+
+       
+
 
     public function follower(){
         return $this->belongsTo(User::class, 'follower_id');
@@ -20,6 +22,9 @@ class Followers extends Model
     public function followed(){
         return $this->belongsTo(User::class, 'followed_id');
     }
+    
+
+
 
 
 }

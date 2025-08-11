@@ -44,7 +44,7 @@
           />
         </div>
       </div>
-  
+    
       <div class="flex items-center">
         <button class="flex mx-4 text-gray-600 focus:outline-none">
           <svg
@@ -68,9 +68,10 @@
             @click="dropdownOpen = !dropdownOpen"
             class="relative z-10 block w-8 h-8 overflow-hidden rounded-full shadow focus:outline-none"
           >
+        
             <img
               class="object-cover w-full h-full"
-              src="https://images.unsplash.com/photo-1528892952291-009c663ce843?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=296&q=80"
+             :src="`/${$page.props.auth.user.profile?.Photo}`"
               alt="Your avatar"
             />
           </button>
@@ -98,16 +99,17 @@
                 class="block px-4 py-2 text-sm w-full text-gray-700 hover:bg-indigo-600 hover:text-white"
                 >Profile</Link
               >
-              <a
-                href="#"
-                class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white"
-                >Public View</a
+              <Link :href="route('Home')" as="button"
+                class="block px-4 py-2 text-sm w-full text-gray-700 hover:bg-indigo-600 hover:text-white"
+                >Public View</Link
               >
+    
               <Link
-              :href="route('logout')" method="post" as="button"
+              :href="route('logout')"  method="post" as="button"
                 class="block px-4 py-2  w-full text-sm text-gray-700 hover:bg-indigo-600 hover:text-white"
                 >Log out</Link
               >
+              
             </div>
           </transition>
         </div>

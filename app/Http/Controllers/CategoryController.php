@@ -9,9 +9,6 @@ class CategoryController extends Controller
 {
 
 
-  
-    
-
     public function store(Request $request){
         $category=$request->validate([
             'name'=>'required'
@@ -22,3 +19,6 @@ class CategoryController extends Controller
         ]);
     }
 }
+
+
+  

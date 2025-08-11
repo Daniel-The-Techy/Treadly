@@ -1,5 +1,7 @@
 <template>
     
+     <div class="sm:container mx-auto px-6 py-8 mt-8 bg-white">
+        <h4 class="text-black font-medium text-xl text-center tracking-wide">Choose a category you are interested in</h4>
             <div class="grid grid-cols-2 gap-2 px-4 md:px-6 md:grid-cols-3 mt-12">
                 <div class="flex items-center">
                     <input id="apple" type="checkbox" value=""
@@ -166,7 +168,7 @@
                     Reset
                 </button>
             </div>
-    
+    </div>
 
 
 

@@ -9,6 +9,7 @@ import Auth from '@/Layouts/Auth.vue';
 defineProps({
     mustVerifyEmail: Boolean,
     status: String,
+   // profile:Object
 });
 </script>
 
@@ -26,6 +27,7 @@ defineProps({
                     <UpdateProfileInformationForm
                         :must-verify-email="mustVerifyEmail"
                         :status="status"
+                        
                         class="max-w-xl"
                     />
                 </div>

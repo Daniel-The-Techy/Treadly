@@ -9,8 +9,13 @@ class Categories extends Model
 {
     use HasFactory;
 
+    protected $table='categories';
 
     protected $fillable=[
         'name'
     ];
+
+    public function posts(){
+        return $this->hasMany(Posts::class, 'Categories_id');
+    }
 }

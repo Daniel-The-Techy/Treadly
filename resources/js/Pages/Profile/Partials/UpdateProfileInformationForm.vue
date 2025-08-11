@@ -8,14 +8,63 @@ import { Link, useForm, usePage } from '@inertiajs/vue3';
 const props = defineProps({
     mustVerifyEmail: Boolean,
     status: String,
+  //  profile:Object
 });
 
 const user = usePage().props.auth.user;
 
+  console.log(user
+  )
 const form = useForm({
     name: user.name,
     email: user.email,
 });
+
+
+const updateForm=useForm({
+  Username:user.profile?.Username,
+  Bio:user.profile?.Bio,
+  About:user.profile?.About,
+  contact:user.profile?.contact,
+  skills:user.profile?.skills,
+  Country:user.profile?.Country,
+  Profession:user.profile?.Profession,
+  Photo:'',
+  Cover_image:'',
+  image_url:'',
+});
+
+
+const submit =() =>{
+  console.log(updateForm);
+
+   updateForm.post(route('Profile.save'));
+}
+
+
+function onImageChoose(e){
+    let file=e.target.files[0];
+
+    const reader=new FileReader()
+
+    reader.onload=()=> {
+        updateForm.Photo=reader.result
+        updateForm.image_url=reader.result
+    }
+    reader.readAsDataURL(file)
+}
+
+function onCoverImageChoose(e){
+    let file=e.target.files[0];
+
+    const reader=new FileReader()
+
+    reader.onload=()=> {
+        updateForm.Cover_image=reader.result
+    }
+    reader.readAsDataURL(file)
+}
+
 </script>
 
 <template>
@@ -90,4 +139,10 @@ const form = useForm({
             </div>
         </form>
     </section>
+
+
+  
+
+
+
 </template>

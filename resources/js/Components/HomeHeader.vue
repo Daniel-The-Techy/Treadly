@@ -1,15 +1,13 @@
 <template>
     
     <header
-      class="flex items-center justify-between px-6 py-4 bg-white shadow-lg border-b-4 border-indigo-600"
+      class="flex items-center justify-between px-6 py-4  bg-white shadow-lg border-b-4 border-indigo-600"
     >
        <div class="logo">
         <h3 class="text-2xl font-bold text-gray-700">Writers<span class="text-base text-emerald-800 ">Hub</span></h3>
        </div>
       <div class="flex justify-between items-center">
         
-
-      
         <div class="relative mx-4 lg:mx-0 xs:hidden">
           <span class="absolute inset-y-0 left-0 sm:flex items-center hidden pl-3">
             <svg class="w-5 h-5 text-gray-500" viewBox="0 0 24 24" fill="none">
@@ -32,15 +30,15 @@
       </div>
   
       <div class="flex items-center">
-       
-        <div class="relative">
+           
+        <div class="relative" v-if="$page.props.auth.user">
           <button
             @click="dropdownOpen = !dropdownOpen"
             class="relative z-10 block w-8 h-8 overflow-hidden rounded-full shadow focus:outline-none"
           >
             <img
               class="object-cover w-full h-full"
-              src="https://images.unsplash.com/photo-1528892952291-009c663ce843?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=296&q=80"
+              :src="`/${$page.props.auth.user.profile?.Photo}`"
               alt="Your avatar"
             />
           </button>
@@ -74,7 +72,7 @@
                 >Your Dashboard</Link>
 
                 <Link
-              :href="route('Connect')" method="post" as="button"
+              :href="route('Connect')" method="get" as="button"
                 class="block px-4 py-2  w-full text-sm text-gray-700 hover:bg-indigo-600 hover:text-white"
                 >Connect with Writers</Link
               >
@@ -89,6 +87,9 @@
         </div>
       </div>
     </header>
+
+
+   
   </template>
   
   <script setup>
@@ -98,4 +99,8 @@
   
   const dropdownOpen = ref(false);
   const { isOpen }=useSidebar();
+
+  const props=defineProps({image:Object})
+
+  console.log(props.image);
   </script>

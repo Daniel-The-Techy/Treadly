@@ -14,7 +14,7 @@
           <div class="mt-2">
             <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
               <span class="flex select-none items-center pl-3 text-gray-500 sm:text-sm">workcation.com/</span>
-              <input type="text" name="username" v-model="Form.Username" id="username" autocomplete="username" class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="janesmith">
+              <input type="text" required name="username" v-model="Form.Username" id="username" autocomplete="username" class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="janesmith">
             </div>
           </div>
         </div>
@@ -22,7 +22,7 @@
         <div class="col-span-full">
           <label for="about" class="block text-sm font-medium leading-6 text-gray-900">Bio</label>
           <div class="mt-2">
-            <textarea id="about" name="about" v-model="Form.Bio" rows="3" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></textarea>
+            <textarea id="about" required name="about"  v-model="Form.Bio" rows="3" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></textarea>
           </div>
           <p class="mt-3 text-sm leading-6 text-gray-600">Write a few sentences about yourself.</p>
         </div>
@@ -30,7 +30,7 @@
         <div class="col-span-full">
           <label for="about" class="block text-sm font-medium leading-6 text-gray-900">About</label>
           <div class="mt-2">
-            <textarea id="about" name="about" v-model="Form.About" rows="3" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></textarea>
+            <textarea id="about" required name="about" v-model="Form.About" rows="3" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></textarea>
           </div>
           <p class="mt-3 text-sm leading-6 text-gray-600">Write a few sentences about yourself.</p>
         </div>
@@ -39,7 +39,7 @@
         <div class="col-span-full">
           <label for="about" class="block text-sm font-medium leading-6 text-gray-900">Skills</label>
           <div class="mt-2">
-            <textarea id="about" name="about" v-model="Form.skills" rows="3" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></textarea>
+            <textarea id="about" required name="about" v-model="Form.skills" rows="3" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></textarea>
           </div>
           <p class="mt-3 text-sm leading-6 text-gray-600">Software Engineer</p>
         </div>
@@ -63,7 +63,7 @@
                     border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium
                      text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500
                     ">
-                    <input type="file" class="absolute left:0 top:0 right:0 bottom:0 opacity-0 cursor-pointer" @change="onImageChoose"/>
+                    <input  type="file" required class="absolute left:0 top:0 right:0 bottom:0 opacity-0 cursor-pointer" @change="onImageChoose"/>
                     Change</button>
                     </div>
                 </div>
@@ -79,7 +79,7 @@
               <div class="mt-4 flex text-sm leading-6 text-gray-600">
                 <label for="file-upload" class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
                   <span>Upload a file</span>
-                  <input id="file-upload" @change="onCoverImageChoose" name="file-upload" type="file" class="sr-only">
+                  <input id="file-upload" required @change="onCoverImageChoose" name="file-upload" type="file" class="sr-only">
                 </label>
                 <p class="pl-1">or drag and drop</p>
               </div>
@@ -99,21 +99,21 @@
         <div class="sm:col-span-3">
           <label for="last-name" class="block text-sm font-medium leading-6 text-gray-900">Username</label>
           <div class="mt-2">
-            <input type="text" name="last-name" v-model="Form.Username" id="last-name" autocomplete="family-name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+            <input type="text" required name="last-name" v-model="Form.Username" id="last-name" autocomplete="family-name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
           </div>
         </div>
 
         <div class="sm:col-span-4">
           <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Contact</label>
           <div class="mt-2">
-            <input id="nmber" name="contact" type="email" v-model="Form.contact" autocomplete="email" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+            <input id="nmber" required name="contact" type="email" v-model="Form.contact" autocomplete="email" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
           </div>
         </div>
 
         <div class="sm:col-span-3">
           <label for="country" class="block text-sm font-medium leading-6 text-gray-900">Country</label>
           <div class="mt-2">
-            <select id="country" name="country" v-model="Form.Country" autocomplete="country-name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
+            <select required id="country" name="country" v-model="Form.Country" autocomplete="country-name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
               <option>United States</option>
               <option>Canada</option>
               <option>Mexico</option>
@@ -126,7 +126,7 @@
         <div class="sm:col-span-4">
           <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Profession</label>
           <div class="mt-2">
-            <input id="nmber" name="contact" type="text" v-model="Form.Profession" autocomplete="email" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+            <input id="nmber" required name="contact" type="text" v-model="Form.Profession" autocomplete="email" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
           </div>
         </div>
 
@@ -153,20 +153,22 @@
 
 <script setup>
 
-import {Head, useForm} from '@inertiajs/vue3'
+import {Head, useForm, usePage} from '@inertiajs/vue3'
 import Auth from '@/Layouts/Auth.vue'
 
+let profile=usePage().props.auth.user.profile;
 
 const Form=useForm({
-  Username:'',
-  Bio:"",
-  About:'',
-  contact:'',
-  skills:'',
-  Country:'',
-  Profession:'',
-  Photo:'',
-  Cover_image:'',
+  id:profile.id ?? '',
+  Username:profile.Username ?? '',
+  Bio:profile.Bio ?? "",
+  About:profile.About ?? '',
+  contact:profile.contact ?? '',
+  skills:profile.skills ?? '',
+  Country:profile.country ?? '',
+  Profession:profile.Profession ?? '',
+  Photo:profile.Photo ?? '',
+  Cover_image:profile.Cover_image ?? '',
   image_url:"",
 });
 

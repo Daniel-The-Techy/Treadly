@@ -29,53 +29,35 @@
       
       <form @submit.prevent="save">
            <div class="flex justify-between">
-              <h2 class="text-[24px] font-medium text-black">Create New Post</h2>
+              <h2 class="text-4xl font-medium text-gray-700 mb-4">Create New Post</h2>
               <div class="primary">
-                 <button class="bg-primary-600 py-2 px-3 rounded-sm cursor-pointer   text-white">update</button>
-                 <button class="bg-green-600 py-2 px-3 ml-2 rounded-sm cursor-pointer  text-white">Save</button>
+                 <button class="bg-green-50 py-2 px-6 text-green-900 ml-2 text-sm rounded-md font-medium cursor-pointer">Save</button>
               </div>
            </div>
      
            <div class="app flex flex-col md:flex-row divide-x space-y-4  md:space-x-4">
          
-            <div>
+            <div class="w-full">
 
-      <div class="mt-3">
+      <div class="">
         <label class="mb-2 font-medium text-black">Title</label>
-      <input type="text"  v-model="Form.title" class="mb-2 block w-full border border-gray-300 py-2 rounded-sm ">
+      <input type="text"  v-model="Form.title" class="mb-2 block w-full border rounded-md border-gray-300 py-5">
     </div>
 
-
-<div class="app " >
-      <editor
-        api-key="acs03r3z4s5grqj09zh9p9fzcmzgmp0l9ayt16de2iqdqg8b"
-        :init="{
-          height: 500,
-          menubar: false,
-          plugins: [
-            'a11ychecker','advlist','advcode','advtable','autolink','checklist','export',
-            'lists','link','image','charmap','preview','anchor','searchreplace','visualblocks',
-            'powerpaste','fullscreen','formatpainter','insertdatetime','media','table','help','wordcount'
-          ],
-          toolbar:
-            'undo redo | casechange blocks | bold italic backcolor | \
-            alignleft aligncenter alignright alignjustify | \
-            bullist numlst checklist outdent indent | removeformat | a11ycheck code table help'
-        }"
-        initial-value="Welcome to TinyMCE Vue"
-        v-model="Form.content"
-      />
+    <div id="app" class="border border-none bg-white">
+        <ckeditor :editor="editor" v-model="Form.content"></ckeditor>
     </div>
 
    <hr>
    </div>
+  
 
    
  
   
 
 
-<div class="bg-white w-full md:w-1/3 md:h-[80vh] mt-8 px-4 md:block py-8 rounded-sm">
+<div class="bg-white w-full md:w-1/3 md:h-[90vh]  px-4 md:block py-12 mt-3  rounded-sm">
 
 
   <div class="publish">
@@ -99,7 +81,7 @@
 
       <div class="">
         <label for="small" class="block mb-2 text-sm font-medium text-gray-900">Choose a Category</label>
-<select id="small" v-model="Form.Categories_id" class="block w-full p-2 mb-6 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500">
+<select required id="small" v-model="Form.Categories_id" class="block w-full p-2 mb-6 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500">
   
   
   <option selected>Choose a category</option>
@@ -113,8 +95,8 @@
      <div class="Customize">
          <h4>Add New Category</h4>
     <div class="flex gap-2">
-         <input type="text" v-model="Category.name"   class="mb-2 block w-full border border-gray-300 py-2 rounded-sm">
-         <button class="bg-emerald-600  px-3 text-white cursor-pointer rounded-md" @click="AddCategory">Add</button>
+         <input type="text" v-model="Category.name"   class=" block w-full rounded-md border border-gray-300 py-2">
+         <button class="bg-emerald-300   text-white cursor-pointer px-8 rounded-full" @click="AddCategory">Add</button>
     </div>
      </div>
        </div>
@@ -155,24 +137,31 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import Auth from '@/Layouts/Auth.vue'
 import { Head, useForm } from '@inertiajs/vue3';
 import Text from '@/Components/Text.vue'
-import Editor from '@tinymce/tinymce-vue'
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+
+let editor=ClassicEditor
+let editorData='Hello This is keditor'
 
 
- defineProps({Categorys:String})
+ const props=defineProps({Categorys:String, post:Object})
 
 
 const Form=useForm({
-  title:"",
-  content:"",
-  status:"",
+  id:props.post.id ?? "",
+  title:props.post.title ?? "",
+  content:props.post.content ?? "",
+  status:props.post.status ?? "",
   Categories_id:"",
-  Cover_image:""
+  Cover_image:props.post.Cover_image ?? ""
 });
 
 const save = () => {
    Form.post(route('Posts.save'));
 }
 
+const editPost = () => {
+   Form.put(route('post.edit'))
+}
 
 
 const Category=useForm({

@@ -3,6 +3,8 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import Auth from '@/Layouts/Auth.vue'
 import { Head } from '@inertiajs/vue3';
 import { ref } from 'vue';
+import {Link} from '@inertiajs/vue3';
+import { router } from '@inertiajs/vue3';
 
 const testusers = {
   name: "John Doe",
@@ -17,11 +19,13 @@ const users = ref([...Array(10).keys()].map(() => testusers));
 
 defineProps(
   {
-    User:Object,
-    Count:Number
+     analytics:Object,
+     posts:Object
   },
 
   )
+
+
 
 
 
@@ -81,7 +85,7 @@ defineProps(
             </div>
 
             <div class="mx-5">
-              <h4 class="text-2xl font-semibold text-gray-700">{{ Count }}</h4>
+              <h4 class="text-2xl font-semibold text-gray-700">{{ analytics.posts_count }}</h4>
               <div class="text-gray-500">Posts</div>
             </div>
           </div>
@@ -114,7 +118,7 @@ defineProps(
             </div>
 
             <div class="mx-5">
-              <h4 class="text-2xl font-semibold text-gray-700">200,521</h4>
+              <h4 class="text-2xl font-semibold text-gray-700">{{ analytics.followers_count}}</h4>
               <div class="text-gray-500">Followers</div>
             </div>
           </div>
@@ -147,7 +151,7 @@ defineProps(
             </div>
 
             <div class="mx-5">
-              <h4 class="text-2xl font-semibold text-gray-700">215,542</h4>
+              <h4 class="text-2xl font-semibold text-gray-700">{{ analytics.like_post_count }}</h4>
               <div class="text-gray-500">Likes</div>
             </div>
           </div>
@@ -156,7 +160,7 @@ defineProps(
     </div>
 
     <div class="mt-8"></div>
-    <h2 class="text-[24px] font-medium tracking-wider text-gray-800">Latest Post</h2>
+    <h2 class="text-[24px] font-medium tracking-wider text-gray-800">Trendy Post</h2>
     <div class="flex flex-col mt-8">
       <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
         <div
@@ -165,11 +169,7 @@ defineProps(
           <table class="min-w-full">
             <thead>
               <tr>
-                <th
-                  class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50"
-                >
-                  Name
-                </th>
+               
                 <th
                   class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50"
                 >
@@ -178,19 +178,24 @@ defineProps(
                 <th
                   class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50"
                 >
-                  Status
+                  views
                 </th>
                 <th
                   class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50"
                 >
-                  Role
+                  likes
+                </th>
+                 <th
+                  class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50"
+                >
+                  Comments
                 </th>
                 <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
               </tr>
             </thead>
 
             <tbody class="bg-white">
-              <tr v-for="(u, index) in users" :key="index">
+              <tr v-for="post in posts" :key="post.id">
                 <td
                   class="px-6 py-4 border-b border-gray-200 whitespace-nowrap"
                 >
@@ -205,11 +210,9 @@ defineProps(
 
                     <div class="ml-4">
                       <div class="text-sm font-medium leading-5 text-gray-900">
-                        {{ u.name }}
+                        {{ post.postTitle }}
                       </div>
-                      <div class="text-sm leading-5 text-gray-500">
-                        {{ u.email }}
-                      </div>
+                     
                     </div>
                   </div>
                 </td>
@@ -218,11 +221,9 @@ defineProps(
                   class="px-6 py-4 border-b border-gray-200 whitespace-nowrap"
                 >
                   <div class="text-sm leading-5 text-gray-900">
-                    {{ u.title }}
+                    {{ post.post_view_count }}
                   </div>
-                  <div class="text-sm leading-5 text-gray-500">
-                    {{ u.title2 }}
-                  </div>
+                 
                 </td>
 
                 <td
@@ -230,21 +231,21 @@ defineProps(
                 >
                   <span
                     class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full"
-                    >{{ u.status }}</span
+                    >{{ post.post_likes_count }}</span
                   >
                 </td>
 
                 <td
                   class="px-6 py-4 text-sm leading-5 text-gray-500 border-b border-gray-200 whitespace-nowrap"
                 >
-                  {{ u.role }}
+                  {{ post.post_comment_count }}
                 </td>
 
                 <td
                   class="px-6 py-4 text-sm font-medium leading-5 text-right border-b border-gray-200 whitespace-nowrap"
                 >
-                  <a href="#" class="text-indigo-600 hover:text-indigo-900"
-                    >Edit</a
+                  <Link :href="route('posts', [post.post_id])" class="text-indigo-600 hover:text-indigo-900"
+                    >Edit</Link
                   >
                 </td>
               </tr>
@@ -258,7 +259,7 @@ defineProps(
 
      <div v-for="items in User" :key="items.id">
     
-    <p>{{ items.name }}</p>
+    <p>{{ items.name }}dddd</p>
     
     
     </div>

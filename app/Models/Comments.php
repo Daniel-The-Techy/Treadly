@@ -15,8 +15,20 @@ class Comments extends Model
         return $this->belongsTo(Posts::class);
     }
 
+    public function  user(){
+       return $this->belongsTo(User::class)->with('Profile');
+     // return $this->belongsTo(User::class, 'user_id');
+    }
+
+   
     public function Reply(){
-        return $this->hasMany(Reply::class);
+        return $this->hasMany(Reply::class, 'comment_id')->with('user');
+    }
+
+    
+
+    public function likedByUsers() {
+        return $this->belongsToMany(User::class, 'comment_likes')->withTimestamps();
     }
 
 

@@ -4,44 +4,60 @@
 
     <Header/>
 
+
     <div class="sm:container sm:mx-auto sm:px-6 sm:py-1 sm:mt-8 bg-white">
-      <div v-for="items in Profile" :key="items.key">
+      <div >
 
 <div class="card bg-white max-w-full mt-4 rounded-md shadow-sm h-auto">
-    <img :src="`/${items.Cover_image}`" class="w-full h-[20vh]  object-cover md:h-[40vh]">
+       
+    <img :src="`/${userProfile.profile?.Cover_image}`" class="w-full h-[20vh]  object-cover md:h-[40vh]">
+
+    
 
     <div class="flex flex-col md:flex-rows lg:space-x-3 px-3 lg:px-8">
-        <img :src="`/${items.Photo}`" class="rounded-full w-[100px] h-[100px] -mt-12">
+        <img :src="`/${userProfile.profile?.Photo}`" class="rounded-full w-[100px] h-[100px] -mt-12">
 
         <div class="mt-2">
             <div class="flex justify-between">
                 <div>
-            <h2 class="text-gray-700 text-[24px] font-bold mb-2">{{ items.Username }}</h2>
-            <p class="text-slate-500 test-sm font-">{{ items.Profession }}</p>
+            <h2 class="text-gray-700 text-[24px] font-bold mb-2">{{ userProfile.name }}</h2>
+            <p class="text-slate-400 test-xs font-">@{{ userProfile.profile?.Username }}</p>
             </div>
 
             
            
               
   
-
   
-  
-
-               <div v-if="Auth">
-                <button class="bg-blue-400  hover:bg-blue-700 py-2 px-8 md:px-12 text-white text-base rounded-md"
-                v-text="Status ? 'Unfollow' : 'Follow'" @click="Follow(items.id)"></button>
+  <div v-if="Auth">
+            <p><Link :href="route('profile')" class="text-gray-600 font-semibold">Edit Profile</Link></p>
+            
                </div>
+  
 
                <div v-else>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 hidden">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
-</svg>
-  <p class="text-center text-slate-500">Edit profile</p>
-               </div>
+                <button :class="followingStatus ? 
+      'bg-gray-200 border border-gray-100  hover:bg-gray-300 py-2 px-4 md:px-12 text-gray-800 font-semibold text-base rounded-full md:rounded-full': 'bg-blue-600    hover:bg-blue-700  py-2 px-4 md:px-12 text-white font-semibold text-base rounded-full md:rounded-full'"
+                
+               
+                v-text="followingStatus ? 'Unfollow' : 'Follow'" @click="Follow(userProfile.profile.user_id)"></button>
+               </div> 
+
+               
             </div>
 
-               <div class="flex space-x-3 sm:space-x-24 mt-2">
+            
+
+
+
+             <div> 
+            <p class="text-sm text-gray-600 max-w-prose  mt-3">
+          {{ userProfile.profile?.Bio }}
+            </p>
+            </div>
+
+
+            <div class="flex space-x-3 sm:space-x-24 mt-2">
                 <small class="text-gray-400 font-semibold"><span class="font-bold  m-2 text-gray-800">{{ PostCount }}</span> Post</small>
                 <small class="text-gray-400 font-semibold"><span class="font-bold text-gray-800 m-2">{{ FollowersCount }}</span> Followers</small>
                 <small class="text-gray-400  font-semibold"><span class="font-bold text-gray-800 m-2">{{ FollowingCount }}</span>Following</small>
@@ -49,17 +65,8 @@
                </div>
 
 
-
-
-            <p class="text-sm text-slate-600 max-w-prose font-light mt-3">
-          {{ items.Bio }}
-            </p>
         </div>
     </div>
-
-
-
-
 
     <div class="border-b mt-4 mb-6 border-gray-200">
     <ul class="flex  -mb-px text-xs sm:text-sm font-medium text-center space-x-0 sm:space-x-0 text-gray-500 ">
@@ -77,9 +84,21 @@
         </li>
 	
     </ul>
+    
    
   </div>
-  <component :is="tabs[currentTab]" class="tab"></component>
+  <component :is="tabs[currentTab]" class="tab"
+   :userProfile="userProfile"
+    :UserFollowers="Followings"
+    :status="status"
+    :id="user_id"
+    :Post="Post"
+    :Auth="Auth"
+    @Follow="Follow"
+    >
+  
+  
+  </component>
 
    
 </div>
@@ -95,53 +114,60 @@
 
 <script setup>
 
-import {Head} from '@inertiajs/vue3'
+import {Head, useForm} from '@inertiajs/vue3'
 import Header from '@/Components/HomeHeader.vue'
 import MobileNav from '@/Components/MobileNav.vue'
 import { ref } from 'vue'
-import Activity from './Activity.vue';
-import Posts from './Posts.vue'
-import Following from './Following.vue'
-import About from './About.vue'
+import Posts from '@/Tab/Posts.vue';
+import Following from '../../Tab/Following.vue'
+import About from '../../Tab/About.vue'
 import { router } from '@inertiajs/vue3';
+import Follow from '@/Utils/Follow.vue';
+import {Link} from '@inertiajs/vue3';
+//import PostTab from '../../Tab/Posts.vue';
 
 
-defineProps(
+const props = defineProps(
   {
-    Profile:Object,
-     Status:Boolean, 
-     FollowersCount:Number,
-     Auth:Boolean,
-      FollowingCount:Number,
-      PostCount:Number
+    userProfile:Object,
+    status:Object, 
+    FollowersCount:Number,
+    Auth:Boolean,
+    FollowingCount:Number,
+    PostCount:Number,
+    Followings:Object,
+    user_id:Number,
+    Post:Object,
+    postLikeCount:Number,
+    postViewCount:Number, 
+    followingStatus:Boolean
     
     })
 
 const currentTab = ref('Posts')
 
-
+console.log(props.userProfile)
 
 const tabs = {
   Posts,
-  Activity,
   Following,
   About,
 }
 
-const Follow = (id) => {
-  
-   router.post('f/' + id);
-}
+ 
+ //const save=Form.Post(route('Follows'))
+
+ 
+//const Follow = (id) => {
+  // router.post('/Home/Profile/f/' + id, {preserveScroll:true} );
+//}
 
 
 
 </script>
 <style scoped>
 .tab-button {
- 
-
   cursor: pointer;
- 
   margin-bottom: -1px;
   margin-right: -1px;
   text-align: center;

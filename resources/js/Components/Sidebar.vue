@@ -42,8 +42,8 @@
   
         <nav class="mt-10">
           <Link :href="route('dashboard')"
-            class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
-            :class="[$page.url === '/Dashboard' ? activeClass :inactiveClass ]">
+            class="flex items-center px-6 py-2 mt-4 duration-200"
+            :class="[$page.url === '/Auth/dashboard' ? activeClass : inactiveClass ]">
         
             <svg
               class="w-5 h-5"
@@ -65,8 +65,8 @@
         </Link>
   
           <Link :href="route('posts')"
-            class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
-            :class="[$page.url === '/Posts' ? activeClass :inactiveClass ]">
+            class="flex items-center px-6 py-2 mt-4 duration-200 "
+            :class="[$page.url === '/Auth/Posts' ? activeClass :inactiveClass ]">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
   <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
 </svg>
@@ -75,49 +75,23 @@
             <span class="mx-4">Manage Post</span>
         </link>
   
-          <Link :href="route('approval')"
-            class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
-
-            :class="[$page.url === '/Approval' ? activeClass :inactiveClass ]">
-          
-            <svg
-              class="w-5 h-5"
-              viewBox="0 0 20 20"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M7 3C6.44772 3 6 3.44772 6 4C6 4.55228 6.44772 5 7 5H13C13.5523 5 14 4.55228 14 4C14 3.44772 13.5523 3 13 3H7Z"
-                fill="currentColor"
-              />
-              <path
-                d="M4 7C4 6.44772 4.44772 6 5 6H15C15.5523 6 16 6.44772 16 7C16 7.55228 15.5523 8 15 8H5C4.44772 8 4 7.55228 4 7Z"
-                fill="currentColor"
-              />
-              <path
-                d="M2 11C2 9.89543 2.89543 9 4 9H16C17.1046 9 18 9.89543 18 11V15C18 16.1046 17.1046 17 16 17H4C2.89543 17 2 16.1046 2 15V11Z"
-                fill="currentColor"
-              />
-            </svg>
-  
-            <span class="mx-4">Reports</span>
-        </Link>
+        
   
           <Link :href="route('Analytics')"
-            class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
-            :class="[$page.url === '/Analytics' ? activeClass :inactiveClass ]">
+            class="flex items-center px-6 py-2 mt-4 duration-200 "
+            :class="[$page.url === '/Auth/Analytics' ? activeClass :inactiveClass ]">
 
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
   <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
 </svg>
   
             <span class="mx-4">Analytics</span>
-        </link>
+        </Link>
   
           <Link :href="route('profile')"
-            class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
+            class="flex items-center px-6 py-2 mt-4 duration-200 "
 
-            :class="[$page.url === '/Profile' ? activeClass :inactiveClass ]">
+            :class="[$page.url === '/Auth/Profile' ? activeClass :  inactiveClass ]">
 
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
   <path stroke-linecap="round" stroke-linejoin="round" d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z" />
@@ -129,23 +103,10 @@
             <span class="mx-4">Profile</span>
         </Link>
   
-          <Link :href="route('Marketing')"
-            class="flex items-center px-6 py-2 mt-4  duration-200 border-l-4"
-
-            :class="[$page.url === '/Marketing' ? activeClass :inactiveClass ]">
         
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
-            <path d="M3 12v3c0 1.657 3.134 3 7 3s7-1.343 7-3v-3c0 1.657-3.134 3-7 3s-7-1.343-7-3z" />
-            <path d="M3 7v3c0 1.657 3.134 3 7 3s7-1.343 7-3V7c0 1.657-3.134 3-7 3S3 8.657 3 7z" />
-            <path d="M17 5c0 1.657-3.134 3-7 3S3 6.657 3 5s3.134-3 7-3 7 1.343 7 3z" />
-          </svg>
-  
-            <span class="mx-4">Marketing</span>
-        </Link>
-  
           <Link :href="route('profile.edit')"
-            class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
-            :class="[$page.url === '/Profile' ? activeClass :inactiveClass ]">
+            class="flex items-center px-6 py-2 mt-4 duration-200 "
+            :class="[$page.url === '/Auth/Profile' ? activeClass : inactiveClass ]">
 
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
   <path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z" />
@@ -170,10 +131,12 @@ import { Link } from "@inertiajs/vue3";
   
   const {isOpen}=useSidebar();
   const activeClass = ref(
-    "bg-gray-600 bg-opacity-25 text-gray-400 border-gray-100"
+    "  border-l-4 bg-gray-700 bg-opacity-25 text-gray-200 border-gray-100"
   );
   const inactiveClass = ref(
-    "border-gray-900 text-gray-300 hover:bg-gray-600 hover:bg-opacity-25 hover:text-gray-100"
+    "text-gray-400 hover:bg-gray-600 hover:bg-opacity-25 hover:text-gray-100"
   );
+
+  
   </script>
   
